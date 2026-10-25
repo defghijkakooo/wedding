@@ -1,0 +1,1531 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Walimatulurus Ayu &amp; Danial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--rose:#d88aa8;--rose-light:#f8dce7;--gold:#e8c891;--ink:#3a1929;--cream:#fff8f4}
+  *{box-sizing:border-box}
+  html{background:var(--ink);scroll-behavior:auto}
+  body{margin:0;color:var(--cream);background:var(--ink);font-family:'Cormorant Garamond',serif;overflow-x:hidden}
+  body.waiting{overflow:hidden;height:100vh}
+
+  /* ================= LOADING PAGE (TEMA WALIMATULURUS) ================= */
+  .preloader{
+    position:fixed;
+    inset:0;
+    z-index:100;
+    display:grid;
+    place-items:center;
+    padding:24px;
+    background:
+      radial-gradient(ellipse at 50% 42%, rgba(216,138,168,.24) 0%, rgba(102,39,67,.65) 52%, rgba(42,15,29,.98) 100%),
+      linear-gradient(160deg, #56213a 0%, #3a1929 55%, #260d19 100%);
+    transition:opacity .75s cubic-bezier(.4,0,.2,1), transform .75s cubic-bezier(.4,0,.2,1), visibility .75s;
+  }
+  .preloader:before{
+    content:"";
+    position:absolute;
+    inset:clamp(12px, 2.5vw, 24px);
+    border:1px solid rgba(232,200,145,.32);
+    pointer-events:none;
+  }
+  .preloader:after{
+    content:"";
+    position:absolute;
+    inset:clamp(18px, 3.1vw, 30px);
+    border:1px solid rgba(248,220,231,.14);
+    pointer-events:none;
+  }
+  .preloader.done{
+    opacity:0;
+    visibility:hidden;
+    transform:scale(1.035);
+    pointer-events:none;
+  }
+  .preloader-inner{
+    position:relative;
+    z-index:2;
+    width:min(380px, 100%);
+    text-align:center;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .preloader-emblem{
+    position:relative;
+    width:118px;
+    height:118px;
+    display:grid;
+    place-items:center;
+    margin-bottom:22px;
+  }
+  .preloader-ring{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    animation:spinSlow 14s linear infinite;
+  }
+  .preloader-ring-inner{
+    position:absolute;
+    inset:11px;
+    width:calc(100% - 22px);
+    height:calc(100% - 22px);
+    animation:spinReverse 9s linear infinite;
+  }
+  .preloader-monogram{
+    font:400 36px/1 'Great Vibes', cursive;
+    color:var(--cream);
+    text-shadow:0 2px 16px rgba(232,200,145,.45);
+    letter-spacing:.02em;
+    animation:gentlePulse 2.4s ease-in-out infinite;
+  }
+  .preloader-monogram span{
+    font:italic 18px/1 'Playfair Display', serif;
+    color:var(--gold);
+    margin:0 2px;
+  }
+  .preloader-kicker{
+    margin:0 0 8px;
+    font:600 10px/1.4 'Inter', sans-serif;
+    letter-spacing:.28em;
+    text-transform:uppercase;
+    color:var(--gold);
+  }
+  .preloader-names{
+    margin:0 0 6px;
+    font:400 clamp(38px, 9vw, 50px)/1.02 'Great Vibes', cursive;
+    color:#fff3f7;
+    text-shadow:0 4px 20px rgba(25,6,16,.55);
+  }
+  .preloader-status{
+    margin:6px 0 18px;
+    font:500 14px/1.5 'Cormorant Garamond', serif;
+    letter-spacing:.06em;
+    color:rgba(255,244,248,.82);
+    min-height:21px;
+  }
+  .preloader-bar-wrap{
+    width:min(260px, 82vw);
+    height:2px;
+    background:rgba(255,232,239,.2);
+    border-radius:99px;
+    position:relative;
+    overflow:visible;
+  }
+  .preloader-bar-fill{
+    position:absolute;
+    left:0;
+    top:0;
+    bottom:0;
+    width:0%;
+    border-radius:99px;
+    background:linear-gradient(90deg, var(--rose), var(--gold));
+    box-shadow:0 0 12px rgba(232,200,145,.75);
+    transition:width .12s ease-out;
+  }
+  .preloader-pct{
+    margin-top:12px;
+    font:500 10px/1 'Inter', sans-serif;
+    letter-spacing:.2em;
+    color:rgba(232,200,145,.9);
+  }
+  .preloader-sparkles{
+    position:absolute;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
+    z-index:1;
+  }
+  .preloader-sparkles i{
+    position:absolute;
+    width:4px;
+    height:4px;
+    border-radius:50%;
+    background:radial-gradient(circle, #fff9fc 0%, var(--gold) 65%, transparent 100%);
+    opacity:0;
+    animation:twinkleFloat 3.6s ease-in-out infinite;
+  }
+  .preloader-sparkles i:nth-child(1){left:18%;top:26%;animation-delay:0s}
+  .preloader-sparkles i:nth-child(2){left:78%;top:22%;animation-delay:.7s}
+  .preloader-sparkles i:nth-child(3){left:24%;top:72%;animation-delay:1.3s}
+  .preloader-sparkles i:nth-child(4){left:74%;top:68%;animation-delay:1.9s}
+  .preloader-sparkles i:nth-child(5){left:50%;top:16%;animation-delay:2.4s}
+  .preloader-sparkles i:nth-child(6){left:84%;top:46%;animation-delay:.4s}
+
+  @keyframes spinSlow{to{transform:rotate(360deg)}}
+  @keyframes spinReverse{to{transform:rotate(-360deg)}}
+  @keyframes gentlePulse{0%,100%{transform:scale(1);opacity:.92}50%{transform:scale(1.05);opacity:1}}
+  @keyframes twinkleFloat{
+    0%,100%{opacity:0;transform:translateY(6px) scale(.6)}
+    50%{opacity:.75;transform:translateY(-6px) scale(1.25)}
+  }
+
+  /* ================= HALAMAN UTAMA & PENTAS 3D ================= */
+  .journey{height:520vh;position:relative;isolation:isolate;background:#3a1929}
+  .stage{height:100vh;height:100svh;position:sticky;top:0;overflow:hidden;isolation:isolate}
+
+  .bg-environment{
+    position:absolute;
+    inset:-35px;
+    z-index:0;
+    background-image:url('assets/background.jpg'), url('background.jpg');
+    background-size:cover;
+    background-position:center;
+    filter:blur(2.5px) brightness(0.92) contrast(0.96) saturate(0.85) sepia(0.22) hue-rotate(295deg);
+    transform:scale(1.08);
+    pointer-events:none;
+  }
+  .bg-tint{
+    position:absolute;
+    inset:0;
+    z-index:0;
+    background:
+      radial-gradient(ellipse at 50% 42%, rgba(240, 180, 202, 0.22) 0%, rgba(138, 62, 92, 0.48) 60%, rgba(62, 24, 43, 0.72) 100%),
+      linear-gradient(180deg, rgba(105, 44, 70, 0.35) 0%, rgba(175, 96, 128, 0.24) 50%, rgba(78, 30, 52, 0.58) 100%);
+    mix-blend-mode:multiply;
+    pointer-events:none;
+  }
+  .bg-palette-wash{
+    position:absolute;
+    inset:0;
+    z-index:0;
+    background:rgba(185, 98, 132, 0.28);
+    mix-blend-mode:color;
+    pointer-events:none;
+  }
+
+  #webgl{position:absolute;inset:0;width:100%;height:100%;display:block;outline:none;z-index:1;background:transparent}
+  .vignette,.grain{position:absolute;inset:0;pointer-events:none}
+  .vignette{z-index:2;background:radial-gradient(ellipse at center,transparent 48%,rgba(52,18,35,.25) 80%,rgba(34,11,23,.58) 100%)}
+  .grain{z-index:2;opacity:.06;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E")}
+  
+  .topbar{position:absolute;z-index:3;left:clamp(18px,4vw,56px);right:clamp(18px,4vw,56px);top:clamp(16px,3vh,30px);display:flex;align-items:center;justify-content:space-between;gap:20px;text-transform:uppercase;letter-spacing:.18em;font:11px/1.5 'Inter', sans-serif;color:rgba(255,244,247,.92);text-shadow:0 2px 10px rgba(38,12,25,.6)}
+  .brand{display:flex;align-items:center;gap:12px;min-width:0}.brand-mark{display:block;width:42px;height:42px;flex:0 0 42px;object-fit:contain;object-position:center;padding:0;margin:0;border:0;border-radius:0;background:transparent!important;box-shadow:none!important;outline:0;filter:none;mix-blend-mode:normal}.brand strong{font-weight:600;letter-spacing:.2em;color:#fff5f7}
+  .top-counter{font-family:'Inter', sans-serif;font-size:11px;font-weight:500;letter-spacing:.14em;white-space:nowrap}
+
+  .chapter-note{position:absolute;z-index:3;left:clamp(18px,4vw,56px);bottom:clamp(80px,11vh,120px);max-width:min(360px,60vw);pointer-events:none;text-shadow:0 2px 18px rgba(35,10,22,.75)}
+  .chapter-kicker{color:var(--gold);font-size:10px;text-transform:uppercase;letter-spacing:.25em;margin-bottom:10px}
+  .chapter-title{font:400 clamp(30px,4.1vw,56px)/.98 'Great Vibes',cursive;margin:0 0 12px;color:#fff2f6;text-wrap:balance}
+  .chapter-desc{font:500 12px/1.7 'Cormorant Garamond',serif;letter-spacing:.08em;color:rgba(255,245,248,.88);max-width:285px}
+  .location-link{display:none;width:max-content;margin-top:15px;padding:10px 16px;border:1px solid rgba(232,200,145,.8);border-radius:999px;color:#fff2f6;background:rgba(82,30,54,.72);font:600 10px 'Cormorant Garamond',serif;letter-spacing:.16em;text-decoration:none;text-transform:uppercase;pointer-events:auto;backdrop-filter:blur(8px);transition:background .25s,transform .25s}.location-link:hover{background:rgba(128,52,83,.9);transform:translateY(-2px)}
+  .progress-wrap{position:absolute;z-index:3;left:clamp(18px,4vw,56px);right:clamp(18px,4vw,56px);bottom:26px;display:flex;align-items:center;gap:16px}
+  .progress-line{height:1px;flex:1;background:rgba(255,232,239,.3);position:relative;overflow:visible}
+  .progress-fill{height:2px;position:absolute;left:0;top:-.5px;width:0;background:linear-gradient(90deg,var(--rose),var(--gold));box-shadow:0 0 12px rgba(232,200,145,.65)}
+  .progress-label{font-family:'Inter', sans-serif;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,242,246,.8);white-space:nowrap;text-shadow:0 1px 8px rgba(35,10,22,.6)}
+
+  .chapter-dots{display:flex;gap:7px;align-items:center}.chapter-dot{appearance:none;width:8px;height:8px;padding:0;border:1px solid rgba(255,233,241,.66);border-radius:50%;background:rgba(255,233,241,.28);transition:transform .25s,background .25s,border-color .25s;cursor:pointer}.chapter-dot.active{background:var(--gold);border-color:var(--gold);transform:scale(1.35)}
+  .chapter-nav{position:absolute;z-index:4;right:clamp(18px,4vw,56px);bottom:70px;display:flex;align-items:center;gap:8px}
+  .chapter-nav button,.read-card-btn{appearance:none;border:1px solid rgba(232,200,145,.7);border-radius:999px;background:rgba(69,25,48,.82);color:#fff6f8;padding:10px 14px;font:600 10px/1.2 'Inter',sans-serif;letter-spacing:.04em;cursor:pointer;backdrop-filter:blur(8px);transition:background .2s,transform .2s,opacity .2s}
+  .chapter-nav button:hover,.read-card-btn:hover{background:rgba(130,51,83,.95);transform:translateY(-1px)}
+  .chapter-nav button:disabled{opacity:.42;cursor:not-allowed;transform:none}
+  .read-card-btn{display:inline-flex;align-items:center;gap:7px;margin-top:12px;pointer-events:auto;background:rgba(255,245,248,.12)}
+  .read-card-btn:before{content:'▤';font-size:13px;color:var(--gold)}
+  .chapter-note{pointer-events:none}.chapter-note a,.chapter-note button{pointer-events:auto}
+  .read-modal[hidden]{display:none}
+  .read-modal{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:18px}
+  .read-modal-backdrop{position:absolute;inset:0;background:rgba(27,8,20,.78);backdrop-filter:blur(7px)}
+  .read-modal-card{position:relative;z-index:1;width:min(620px,100%);max-height:min(82svh,760px);overflow:auto;padding:clamp(24px,5vw,42px);background:#fff9f7;color:#4c2938;border:1px solid #dfbd83;box-shadow:0 24px 90px rgba(0,0,0,.38)}
+  .read-modal-kicker{margin:0 36px 9px 0;color:#99516c;font:700 10px/1.5 'Inter',sans-serif;letter-spacing:.18em;text-transform:uppercase}
+  .read-modal-title{margin:0 36px 20px 0;color:#8f3d61;font:500 clamp(32px,6vw,48px)/1.05 'Great Vibes',cursive}
+  .read-modal-content{font:500 17px/1.75 'Cormorant Garamond',serif;color:#4c2938}
+  .read-modal-content p{margin:0 0 13px}.read-modal-content strong{font-weight:700}.read-modal-content .modal-date{font:600 12px/1.8 'Inter',sans-serif;letter-spacing:.08em;color:#8f3d61}
+  .read-modal-content a{display:inline-flex;margin:4px 0 12px;color:#843b5b;text-decoration:underline;text-underline-offset:3px}
+  .read-modal-close{position:absolute;top:14px;right:14px;width:36px;height:36px;border:1px solid rgba(143,61,97,.25);border-radius:50%;background:#fff;color:#793651;font:24px/1 'Inter',sans-serif;cursor:pointer}
+  .read-modal-actions{display:flex;justify-content:space-between;gap:12px;margin-top:24px;padding-top:16px;border-top:1px solid rgba(143,61,97,.2)}
+  .read-modal-actions button{border:1px solid #cba16a;border-radius:999px;padding:11px 15px;background:#843b5b;color:white;font:600 10px/1.3 'Inter',sans-serif;letter-spacing:.04em;cursor:pointer}
+  .read-modal-actions button:disabled{opacity:.4;cursor:not-allowed}
+  .read-modal-actions .modal-close-secondary{background:transparent;color:#843b5b}
+  .calendar-modal[hidden]{display:none}
+  .calendar-modal{position:fixed;inset:0;z-index:70;display:grid;place-items:center;padding:18px}
+  .calendar-modal-backdrop{position:absolute;inset:0;background:rgba(27,8,20,.8);backdrop-filter:blur(7px)}
+  .calendar-modal-card{position:relative;z-index:1;width:min(510px,100%);padding:clamp(24px,5vw,38px);background:#fff9f7;color:#4c2938;border:1px solid #dfbd83;box-shadow:0 24px 90px rgba(0,0,0,.38)}
+  .calendar-modal-close{position:absolute;top:13px;right:13px;width:36px;height:36px;border:1px solid rgba(143,61,97,.25);border-radius:50%;background:#fff;color:#793651;font:24px/1 'Inter',sans-serif;cursor:pointer}
+  .calendar-modal-kicker{margin:0 38px 8px 0;color:#99516c;font:700 10px/1.5 'Inter',sans-serif;letter-spacing:.18em;text-transform:uppercase}
+  .calendar-modal-title{margin:0 36px 12px 0;color:#8f3d61;font:500 clamp(32px,6vw,44px)/1.05 'Great Vibes',cursive}
+  .calendar-modal-copy{font:500 15px/1.65 'Cormorant Garamond',serif;color:#4c2938;margin:0 0 12px}
+  .calendar-modal-actions{display:grid;grid-template-columns:1fr;gap:10px;margin-top:22px}
+  .calendar-option-primary,.calendar-option-secondary{display:flex;align-items:center;justify-content:center;min-height:44px;padding:12px 15px;border:1px solid #cba16a;border-radius:999px;background:#843b5b;color:#fff;text-align:center;text-decoration:none;font:600 10px/1.35 'Inter',sans-serif;letter-spacing:.05em;cursor:pointer}
+  .calendar-option-secondary{background:transparent;color:#843b5b}
+  .chapter-nav button.calendar-next{border-color:rgba(255,222,157,.95);background:linear-gradient(135deg,#b45e80,#78324f);box-shadow:0 5px 20px rgba(21,6,16,.25);}
+  .chapter-nav button.calendar-next:hover{background:linear-gradient(135deg,#c36b8d,#8b3e5d)}
+
+  .curtain{position:fixed;inset:0;z-index:20;display:grid;place-items:center;overflow:hidden;background:transparent;transition:visibility .8s}
+  .curtain.hidden{visibility:hidden;pointer-events:none}
+  .curtain-panel{position:absolute;top:0;height:100%;height:100svh;width:51%;background:radial-gradient(ellipse at 50% 45%,rgba(235,172,195,.25),transparent 55%),linear-gradient(135deg,#783152,#3c162d 70%);transition:transform 1.6s cubic-bezier(.72,0,.18,1);box-shadow:0 0 70px rgba(0,0,0,.38)}
+  .curtain-panel:before,.curtain-panel:after{content:"";position:absolute;top:0;bottom:0;width:1px;background:linear-gradient(transparent,rgba(232,200,145,.65),transparent)}
+  .curtain-left{left:0;border-right:1px solid rgba(232,200,145,.45)}.curtain-left:after{right:28px}.curtain-right{right:0;border-left:1px solid rgba(232,200,145,.45)}.curtain-right:before{left:28px}
+  .curtain.opened .curtain-left{transform:translateX(-102%)}.curtain.opened .curtain-right{transform:translateX(102%)}
+  .welcome{position:relative;z-index:2;width:min(420px,calc(100vw - 36px));padding:42px 28px 38px;text-align:center;color:#5a243e;background:rgba(255,247,247,.96);border:1px solid #e8c891;box-shadow:0 24px 80px rgba(0,0,0,.3);transition:opacity .45s,transform .55s}
+  .curtain.opened .welcome{opacity:0;transform:scale(.92)}
+  .welcome:before{content:"";position:absolute;inset:8px;border:1px solid rgba(168,78,112,.3);pointer-events:none}
+  .welcome-kicker{position:relative;letter-spacing:.28em;font-size:10px;font-weight:700;margin:0 0 15px;color:#8e4965}
+  .welcome-names{position:relative;margin:0 0 5px;font:400 clamp(48px,12vw,68px)/.95 'Great Vibes',cursive;color:#9a4268}
+  .welcome-date{position:relative;font-family:'Inter', sans-serif;letter-spacing:.15em;font-weight:500;font-size:13px;margin:18px 0 25px;color:#7e3b58}
+  .open-btn{position:relative;border:1px solid #e8c891;background:linear-gradient(135deg,#a84f73,#702744);color:white;padding:13px 27px;border-radius:99px;font:600 11px 'Cormorant Garamond',serif;letter-spacing:.21em;text-transform:uppercase;cursor:pointer;box-shadow:0 8px 22px rgba(112,39,68,.22);transition:transform .25s,box-shadow .25s}
+  .open-btn:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(112,39,68,.3)}
+  .welcome-note{position:relative;max-width:300px;margin:18px auto 0;font-size:11px;line-height:1.65;letter-spacing:.035em;color:#976c7c}
+  .error{position:fixed;z-index:110;inset:auto 16px 16px;padding:15px 18px;background:#fff8f4;color:#5c263a;border:1px solid #e8c891;border-radius:12px;font-size:14px;display:none}
+  .error.show{display:block}
+  @media(max-width:650px){
+    .preloader-emblem{width:104px;height:104px;margin-bottom:18px}
+    .preloader-monogram{font-size:32px}
+    .chapter-note{bottom:125px;max-width:67vw}.chapter-title{font-size:38px}.chapter-desc{font-size:12px;line-height:1.55;max-width:230px}
+    .chapter-nav{left:18px;right:18px;bottom:53px;justify-content:flex-end;gap:6px}.chapter-nav button{padding:9px 11px;font-size:9px}
+    .topbar{letter-spacing:.12em;gap:10px}.brand{gap:8px}.brand-mark{width:32px;height:32px;flex-basis:32px}.brand strong{letter-spacing:.1em;font-size:10px}.top-counter{font-size:9px;letter-spacing:.08em}.progress-wrap{bottom:16px;gap:10px}.progress-label{font-size:8px;letter-spacing:.08em}.chapter-dots{gap:6px}.chapter-dot{width:7px;height:7px}
+    .read-card-btn{font-size:9px;padding:9px 12px}.read-modal{padding:10px}.read-modal-card{max-height:88svh;padding:26px 20px}.read-modal-content{font-size:16px}.read-modal-actions{gap:8px}.read-modal-actions button{padding:10px 11px;font-size:9px}
+    .calendar-modal{padding:10px}.calendar-modal-card{padding:28px 20px}.calendar-modal-copy{font-size:14px}
+  }
+  @media(max-width:390px){.chapter-note{max-width:65vw}.chapter-nav button{font-size:8px;padding:8px 9px}.progress-wrap{gap:7px}.progress-line{min-width:26px}}
+
+</style>
+</head>
+<body class="waiting" aria-busy="true">
+
+<!-- Skrin Pemuatan (Loading Page) -->
+<div class="preloader" id="preloader" role="status" aria-live="polite" aria-label="Memuatkan jemputan perkahwinan">
+  <div class="preloader-sparkles" aria-hidden="true">
+    <i></i><i></i><i></i><i></i><i></i><i></i>
+  </div>
+  <div class="preloader-inner">
+    <div class="preloader-emblem" aria-hidden="true">
+      <svg class="preloader-ring" viewBox="0 0 120 120" fill="none">
+        <circle cx="60" cy="60" r="56" stroke="rgba(232,200,145,0.35)" stroke-width="1"/>
+        <circle cx="60" cy="60" r="56" stroke="#e8c891" stroke-width="1.4" stroke-dasharray="48 130" stroke-linecap="round"/>
+        <circle cx="60" cy="4" r="2.5" fill="#e8c891"/>
+        <circle cx="60" cy="116" r="2.5" fill="#d88aa8"/>
+      </svg>
+      <svg class="preloader-ring-inner" viewBox="0 0 100 100" fill="none">
+        <circle cx="50" cy="50" r="46" stroke="rgba(248,220,231,0.28)" stroke-width="1" stroke-dasharray="4 6"/>
+      </svg>
+      <div class="preloader-monogram">A<span>&amp;</span>D</div>
+    </div>
+    <p class="preloader-kicker">WALIMATULURUS</p>
+    <p class="preloader-names">Ayu &amp; Danial</p>
+    <p class="preloader-status" id="preloaderStatus">Menyediakan lembaran jemputan...</p>
+    <div class="preloader-bar-wrap" aria-hidden="true">
+      <div class="preloader-bar-fill" id="preloaderFill"></div>
+    </div>
+    <div class="preloader-pct" id="preloaderPct">0%</div>
+  </div>
+</div>
+
+<div class="curtain" id="curtain" aria-label="Buka jemputan">
+  <div class="curtain-panel curtain-left"></div><div class="curtain-panel curtain-right"></div>
+  <div class="welcome">
+    <p class="welcome-kicker">WALIMATULURUS</p>
+    <h1 class="welcome-names">Ayu &amp; Danial</h1>
+    <p class="welcome-date">02 · 01 · 2027</p>
+    <button class="open-btn" id="openBtn">Mula Perjalanan</button>
+    <p class="welcome-note">Perjalanan istimewa bermula di sini.</p>
+  </div>
+</div>
+<section class="journey" id="journey" aria-label="Perjalanan jemputan 3D">
+  <div class="stage">
+    <div class="bg-environment" id="bgEnv"></div>
+    <div class="bg-tint"></div>
+    <div class="bg-palette-wash"></div>
+
+    <canvas id="webgl" aria-label="Adegan jemputan 3D dengan kamera bergerak mengikut scroll"></canvas>
+    <div class="vignette"></div><div class="grain"></div>
+    <div class="topbar"><div class="brand"><img id="brandLogo" class="brand-mark" src="assets/logo.jpg" alt="Logo Ayu dan Danial" width="42" height="42"><strong>AYU <span style="color:var(--gold)">×</span> DANIAL</strong></div><div class="top-counter"><span id="chapterNum">01</span> <span style="color:var(--gold)">/</span> 04 &nbsp;·&nbsp; 02 JAN 2027</div></div>
+    <div class="chapter-note"><div class="chapter-kicker" id="chapterKicker">BABAK 1 · PERMULAAN</div><h2 class="chapter-title" id="chapterTitle">Ayu &amp; Danial</h2><p class="chapter-desc" id="chapterDesc">Gerakkan perjalanan dengan skrol untuk membaca empat babak jemputan.</p><a class="location-link" id="locationLink" href="https://maps.app.goo.gl/35REVG1qtnf4qi9Y9" target="_blank" rel="noopener noreferrer">Buka Google Maps</a><button class="read-card-btn" id="readCardBtn" type="button">Baca teks kad</button></div>
+    <div class="chapter-nav" aria-label="Navigasi babak"><button type="button" id="prevChapter" disabled>← Kembali</button><button type="button" id="nextChapter">Seterusnya: Lokasi Majlis →</button></div>
+    <div class="progress-wrap"><div class="progress-label">PERJALANAN</div><div class="progress-line"><div class="progress-fill" id="progressFill"></div></div><div class="chapter-dots" id="chapterDots" aria-label="Pilih babak"><button type="button" class="chapter-dot active" data-chapter="0" aria-label="Ke babak 1: Permulaan"></button><button type="button" class="chapter-dot" data-chapter="1" aria-label="Ke babak 2: Jemputan Rasmi"></button><button type="button" class="chapter-dot" data-chapter="2" aria-label="Ke babak 3: Lokasi Majlis"></button><button type="button" class="chapter-dot" data-chapter="3" aria-label="Ke babak 4: Penutup"></button></div><div class="progress-label" id="progressPct">00%</div></div>
+  </div>
+</section>
+<div class="error" id="error"></div>
+<div class="read-modal" id="readModal" hidden>
+  <div class="read-modal-backdrop" id="readModalBackdrop"></div>
+  <section class="read-modal-card" id="readModalCard" role="dialog" aria-modal="true" aria-labelledby="readModalTitle" tabindex="-1">
+    <button class="read-modal-close" id="closeReadModal" type="button" aria-label="Tutup butiran kad">×</button>
+    <p class="read-modal-kicker" id="readModalKicker">BABAK 1 DARIPADA 4</p>
+    <h2 class="read-modal-title" id="readModalTitle">Ayu &amp; Danial</h2>
+    <div class="read-modal-content" id="readModalContent"></div>
+    <div class="read-modal-actions"><button class="modal-close-secondary" id="modalPrev" type="button">← Babak sebelumnya</button><button id="modalNext" type="button">Babak seterusnya →</button></div>
+  </section>
+</div>
+<div class="calendar-modal" id="calendarModal" hidden>
+  <div class="calendar-modal-backdrop" id="calendarModalBackdrop"></div>
+  <section class="calendar-modal-card" role="dialog" aria-modal="true" aria-labelledby="calendarModalTitle" tabindex="-1" id="calendarModalCard">
+    <button class="calendar-modal-close" id="closeCalendarModal" type="button" aria-label="Tutup pilihan kalendar">×</button>
+    <p class="calendar-modal-kicker">SIMPAN TARIKH MAJLIS</p>
+    <h2 class="calendar-modal-title" id="calendarModalTitle">Add to Calendar</h2>
+    <p class="calendar-modal-copy">Sabtu, 2 Januari 2027 · 9:00 pagi – 6:00 petang</p>
+    <p class="calendar-modal-copy">Pilih kalendar anda. Google Calendar akan membuka acara yang sudah diisi untuk disimpan. Pilihan .ics boleh dibuka dengan Apple Calendar, Outlook atau aplikasi kalendar lain.</p>
+    <div class="calendar-modal-actions">
+      <a id="googleCalendarLink" class="calendar-option-primary" href="#" target="_blank" rel="noopener noreferrer">Google Calendar ↗</a>
+      <button id="downloadIcsBtn" class="calendar-option-secondary" type="button">Apple / Outlook (.ics) ↓</button>
+    </div>
+  </section>
+</div>
+
+<!-- Elemen Audio untuk Kesan Bunyi Buka dan Lagu Latar Romantik -->
+<audio id="openEffect" src="assets/open_effect.mp3" preload="auto"></audio>
+<audio id="bgSound" src="assets/bg_sound.mp3?v=2" loop preload="auto"></audio>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(() => {
+  const preloaderEl = document.getElementById('preloader');
+  const preloaderFill = document.getElementById('preloaderFill');
+  const preloaderPct = document.getElementById('preloaderPct');
+  const preloaderStatus = document.getElementById('preloaderStatus');
+  const errorBox = document.getElementById('error');
+
+  // Pengawal Loading Pintar: Pantas, tidak membiarkan tetamu menunggu lama
+  const MIN_LOADER_MS = 850;   // Elak kelipan mendadak jika cache laju
+  const MAX_LOADER_MS = 3200;  // Had maksimum menunggu (~3.2s) supaya user tak tunggu lama
+  const TOTAL_STEPS = 18;      // 1 fon + 1 bg + 8 elemen hiasan + 4 kad 3D + 4 potret pasangan
+  let completedSteps = 0;
+  let targetProgress = 6;
+  let shownProgress = 0;
+  let loaderFinished = false;
+
+  function updateLoaderVisuals(){
+    if (loaderFinished && shownProgress >= 99.9) return;
+    const speed = loaderFinished ? 0.24 : 0.12;
+    shownProgress += (targetProgress - shownProgress) * speed;
+    if (loaderFinished && Math.abs(100 - shownProgress) < 0.6) shownProgress = 100;
+
+    const rounded = Math.min(100, Math.round(shownProgress));
+    if (preloaderFill) preloaderFill.style.width = shownProgress.toFixed(1) + '%';
+    if (preloaderPct) preloaderPct.textContent = rounded + '%';
+
+    if (preloaderStatus && !loaderFinished) {
+      if (rounded < 35) preloaderStatus.textContent = 'Menyediakan ruang majlis...';
+      else if (rounded < 72) preloaderStatus.textContent = 'Menyusun jambangan bunga & cahaya...';
+      else preloaderStatus.textContent = 'Menyiapkan lembaran jemputan...';
+    }
+
+    if (shownProgress < 100) {
+      requestAnimationFrame(updateLoaderVisuals);
+    }
+  }
+  requestAnimationFrame(updateLoaderVisuals);
+
+  function markAssetStep(){
+    completedSteps = Math.min(TOTAL_STEPS, completedSteps + 1);
+    if (!loaderFinished) {
+      targetProgress = Math.max(targetProgress, Math.min(96, (completedSteps / TOTAL_STEPS) * 96));
+    }
+  }
+
+  function finishPreloader(){
+    if (loaderFinished) return;
+    loaderFinished = true;
+    targetProgress = 100;
+    if (preloaderStatus) preloaderStatus.textContent = 'Sedia untuk dibuka';
+    window.setTimeout(() => {
+      if (preloaderEl) preloaderEl.classList.add('done');
+      document.body.removeAttribute('aria-busy');
+    }, 260);
+  }
+
+  const delay = ms => new Promise(resolve => window.setTimeout(resolve, ms));
+
+  function showError(message){
+    finishPreloader();
+    errorBox.textContent = message;
+    errorBox.classList.add('show');
+  }
+
+  if (!window.THREE || !window.gsap || !window.ScrollTrigger) {
+    showError('Enjin 3D tidak dapat dimuatkan. Semak sambungan internet, kemudian buka semula fail ini.');
+    return;
+  }
+  gsap.registerPlugin(ScrollTrigger);
+
+  const canvas = document.getElementById('webgl');
+  const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true, powerPreference:'high-performance'});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.7));
+  renderer.setSize(window.innerWidth, window.innerHeight, false);
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.setClearColor(0x000000, 0);
+
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.FogExp2(0x522338, 0.0078);
+  const camera = new THREE.PerspectiveCamera(58, window.innerWidth / window.innerHeight, 0.1, 260);
+  camera.position.set(0,0,34);
+
+  scene.add(new THREE.HemisphereLight(0xffeaf0, 0x421c2e, 1.75));
+  const keyLight = new THREE.PointLight(0xffcde0, 2.5, 65); keyLight.position.set(-5,7,11); scene.add(keyLight);
+  const goldLight = new THREE.PointLight(0xffe0a8, 2.1, 52); goldLight.position.set(7,-4,-22); scene.add(goldLight);
+  const backLight = new THREE.PointLight(0xc46b94, 2.6, 80); backLight.position.set(0,2,-65); scene.add(backLight);
+
+  const pages = [
+    {z:0, name:'Ayu & Danial', kicker:'MULA PERJALANAN', desc:'Menuju destinasi cinta, mahligai bahagia.', background:['assets/download (4).jpg','assets/invitation-cover-bg.jpg'], kind:'cover'},
+    {z:-30, name:'Jemputan Rasmi', kicker:'BABAK 02 · JEMPUTAN', desc:'Dengan penuh kesyukuran, kami menjemput keluarga dan sahabat meraikan hari bahagia Ayu & Danial.', background:['assets/download (5).jpg','assets/invitation-detail-bg.jpg'], kind:'invite'},
+    {z:-60, name:'Lokasi Majlis', kicker:'BABAK 03 · LOKASI', desc:'Simpan lokasi dan hubungi keluarga jika ada pertanyaan.', background:['assets/download (2).jpg','assets/invitation-detail-bg.jpg'], kind:'location'},
+    {z:-90, name:'Counting Days', kicker:'BABAK 04 · PENUTUP', desc:'Menghitung hari menuju detik bahagia kami pada 02 Januari 2027. Terima kasih atas doa dan kehadiran anda.', background:['assets/download (2).jpg','assets/invitation-detail-bg.jpg'], kind:'ending'}
+  ];
+  const pageMeshes = [];
+  const gateGroups = [];
+  const floating = [];
+  const textureLoader = new THREE.TextureLoader();
+  const imageCache = new Map();
+  const W = 900, H = 1600;
+  const rose = '#9a4168', burgundy = '#5e2940', gold = '#9a703d', ink = '#4c2938';
+
+  const WEDDING_TARGET = new Date('2027-01-02T00:00:00+08:00').getTime();
+  let endingState = null;
+
+  const customTextures = {
+    flower: null,
+    flora: null,
+    pearlFlower: null,
+    sakura: null,
+    goldButterflyLeft: null,
+    goldButterflyRight: null,
+    pinkButterflyLeft: null,
+    pinkButterflyRight: null,
+    pearl: null,
+    mapImg: null
+  };
+
+  function loadImage(src){
+    if(imageCache.has(src)) return imageCache.get(src);
+    const promise = new Promise(resolve => {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => resolve(img);
+      img.onerror = () => resolve(null);
+      img.src = src;
+    });
+    imageCache.set(src,promise);
+    return promise;
+  }
+
+  async function loadFirstAvailable(candidates){
+    const list = Array.isArray(candidates) ? candidates : [candidates];
+    for(const src of list){
+      const img = await loadImage(src);
+      if(img) return img;
+    }
+    return null;
+  }
+
+  function createCleanTexture(img, removeWhiteBg = false){
+    if(!img) return null;
+    const c = document.createElement('canvas');
+    c.width = img.width;
+    c.height = img.height;
+    const ctx = c.getContext('2d');
+    ctx.drawImage(img, 0, 0);
+    if(removeWhiteBg){
+      try {
+        const imgData = ctx.getImageData(0, 0, c.width, c.height);
+        const d = imgData.data;
+        for(let i = 0; i < d.length; i += 4){
+          const r = d[i], g = d[i+1], b = d[i+2];
+          const max = Math.max(r, g, b);
+          const min = Math.min(r, g, b);
+          const sat = max - min;
+          if(r > 234 && g > 234 && b > 234 && sat < 24){
+            d[i+3] = 0;
+          } else if(r > 212 && g > 212 && b > 212 && sat < 32){
+            const fade = Math.max(0, Math.min(1, (240 - (r + g + b) / 3) / 28));
+            d[i+3] = Math.round(d[i+3] * fade);
+          }
+        }
+        ctx.putImageData(imgData, 0, 0);
+      } catch(e) {}
+    }
+    const tex = new THREE.CanvasTexture(c);
+    tex.encoding = THREE.sRGBEncoding;
+    tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+    tex.needsUpdate = true;
+    return tex;
+  }
+
+  function createGlowingStarPearlTexture(img){
+    const size = 128;
+    const c = document.createElement('canvas');
+    c.width = size; c.height = size;
+    const ctx = c.getContext('2d');
+
+    const grad = ctx.createRadialGradient(size/2, size/2, size*0.08, size/2, size/2, size*0.5);
+    grad.addColorStop(0, 'rgba(255, 250, 252, 0.96)');
+    grad.addColorStop(0.45, 'rgba(250, 222, 234, 0.5)');
+    grad.addColorStop(1, 'rgba(248, 215, 228, 0)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, size, size);
+
+    if(img){
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(size/2, size/2, size*0.26, 0, Math.PI * 2);
+      ctx.closePath();
+      ctx.clip();
+      ctx.drawImage(img, size*0.24, size*0.24, size*0.52, size*0.52);
+      ctx.restore();
+    }
+
+    const tex = new THREE.CanvasTexture(c);
+    tex.encoding = THREE.sRGBEncoding;
+    tex.needsUpdate = true;
+    return tex;
+  }
+
+  function createButterflyWingTextures(img, removeWhite = false){
+    if(!img) return { left: null, right: null };
+    const cleanCanvas = document.createElement('canvas');
+    cleanCanvas.width = img.width;
+    cleanCanvas.height = img.height;
+    const cleanCtx = cleanCanvas.getContext('2d');
+    cleanCtx.drawImage(img, 0, 0);
+
+    if(removeWhite){
+      try {
+        const imgData = cleanCtx.getImageData(0, 0, cleanCanvas.width, cleanCanvas.height);
+        const d = imgData.data;
+        for(let i = 0; i < d.length; i += 4){
+          const r = d[i], g = d[i+1], b = d[i+2];
+          if(r > 236 && g > 236 && b > 236 && (Math.max(r,g,b) - Math.min(r,g,b)) < 20){
+            d[i+3] = 0;
+          }
+        }
+        cleanCtx.putImageData(imgData, 0, 0);
+      } catch(e) {}
+    }
+
+    const halfW = Math.max(1, Math.floor(img.width / 2));
+    const h = img.height;
+
+    const cLeft = document.createElement('canvas');
+    cLeft.width = halfW; cLeft.height = h;
+    cLeft.getContext('2d').drawImage(cleanCanvas, 0, 0, halfW, h, 0, 0, halfW, h);
+
+    const cRight = document.createElement('canvas');
+    cRight.width = halfW; cRight.height = h;
+    cRight.getContext('2d').drawImage(cleanCanvas, halfW, 0, img.width - halfW, h, 0, 0, halfW, h);
+
+    const texL = new THREE.CanvasTexture(cLeft);
+    const texR = new THREE.CanvasTexture(cRight);
+    texL.encoding = THREE.sRGBEncoding;
+    texR.encoding = THREE.sRGBEncoding;
+    texL.anisotropy = renderer.capabilities.getMaxAnisotropy();
+    texR.anisotropy = renderer.capabilities.getMaxAnisotropy();
+    return { left: texL, right: texR };
+  }
+
+  async function preloadCustomElements(){
+    const track = candidates => loadFirstAvailable(candidates).then(img => { markAssetStep(); return img; });
+    // Utamakan laluan 'assets/...' terlebih dahulu bagi mengelakkan kelewatan 404
+    const [flowerImg, floraImg, pearlFlowerImg, sakuraImg, goldBfImg, pinkBfImg, mutiaraImg, locImg] = await Promise.all([
+      track(['assets/flower_2.png', 'assets/flower.png', 'flower_2.png', 'flower.png']),
+      track(['assets/flora_2.jpg', 'assets/flora.jpg', 'flora_2.jpg', 'flora.jpg']),
+      track(['assets/pearl-flower_2.jpg', 'assets/pearl-flower.jpg', 'pearl-flower_2.jpg', 'pearl-flower.jpg']),
+      track(['assets/sakura.png', 'sakura.png']),
+      track(['assets/butterfly_2.png', 'assets/butterfly.png', 'butterfly_2.png', 'butterfly.png']),
+      track(['assets/pink-butterfly_2.png', 'assets/pink-butterfly.png', 'pink-butterfly_2.png', 'pink-butterfly.png']),
+      track(['assets/mutiara_3.png', 'assets/mutiara_2.png', 'assets/mutiara.png', 'mutiara_3.png', 'mutiara_2.png', 'mutiara.png']),
+      track(['assets/location_2.png', 'assets/location.png', 'location_2.png', 'location.png'])
+    ]);
+
+    customTextures.flower = createCleanTexture(flowerImg, false);
+    customTextures.flora = createCleanTexture(floraImg, true);
+    customTextures.pearlFlower = createCleanTexture(pearlFlowerImg, true);
+    customTextures.sakura = createCleanTexture(sakuraImg, true);
+    customTextures.pearl = createGlowingStarPearlTexture(mutiaraImg);
+    customTextures.mapImg = locImg;
+
+    const goldWings = createButterflyWingTextures(goldBfImg, false);
+    customTextures.goldButterflyLeft = goldWings.left;
+    customTextures.goldButterflyRight = goldWings.right;
+
+    const pinkWings = createButterflyWingTextures(pinkBfImg, true);
+    customTextures.pinkButterflyLeft = pinkWings.left;
+    customTextures.pinkButterflyRight = pinkWings.right;
+  }
+
+  function roundedPath(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+  function centered(ctx,text,y,font,color=ink){ctx.font=font;ctx.fillStyle=color;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(text,W/2,y);}
+  function divider(ctx,y,w=190){ctx.save();ctx.strokeStyle='rgba(151,105,61,.72)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(W/2-w/2,y);ctx.lineTo(W/2+w/2,y);ctx.stroke();ctx.fillStyle='#c8a36b';ctx.beginPath();ctx.arc(W/2,y,4,0,Math.PI*2);ctx.fill();ctx.restore();}
+
+  function drawMapMark(ctx,y){
+    if(customTextures.mapImg){
+      const img = customTextures.mapImg;
+      const maxW = 680, maxH = 460;
+      const ratio = Math.min(maxW / img.width, maxH / img.height);
+      const w = img.width * ratio;
+      const h = img.height * ratio;
+      ctx.save();
+      ctx.drawImage(img, (W - w) / 2, y - h / 2, w, h);
+      ctx.restore();
+      return;
+    }
+    ctx.save(); ctx.translate(W/2,y); ctx.strokeStyle='rgba(140,64,95,.38)';ctx.lineWidth=4;ctx.lineCap='round';
+    ctx.beginPath();ctx.moveTo(-230,55);ctx.bezierCurveTo(-160,-20,-120,70,-35,16);ctx.bezierCurveTo(35,-40,80,66,215,-10);ctx.stroke();
+    ctx.beginPath();ctx.arc(0,0,32,0,Math.PI*2);ctx.fillStyle='rgba(245,219,228,.9)';ctx.fill();ctx.lineWidth=3;ctx.strokeStyle='#9a4168';ctx.stroke();
+    ctx.restore();
+  }
+
+  function renderEndingCard(){
+    if(!endingState) return;
+    const { ctx, bg, frame, texture } = endingState;
+    ctx.clearRect(0, 0, W, H);
+
+    ctx.save();
+    roundedPath(ctx, 11, 11, W - 22, H - 22, 28);
+    ctx.clip();
+    if(bg) ctx.drawImage(bg, 0, 0, W, H);
+    else { ctx.fillStyle = '#f6e9e6'; ctx.fillRect(0, 0, W, H); }
+    ctx.restore();
+
+    const now = Date.now();
+    const diff = Math.max(0, WEDDING_TARGET - now);
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    ctx.save();
+    centered(ctx, 'C O U N T I N G   D A Y S', 490, '700 32px "Playfair Display", serif', burgundy);
+    centered(ctx, 'Menuju 02 Januari 2027', 542, 'italic 26px "Cormorant Garamond", serif', rose);
+    divider(ctx, 588, 220);
+
+    const units = [
+      { value: String(days).padStart(2, '0'), label: 'DAYS' },
+      { value: String(hours).padStart(2, '0'), label: 'HOURS' },
+      { value: String(minutes).padStart(2, '0'), label: 'MINUTES' },
+      { value: String(seconds).padStart(2, '0'), label: 'SECONDS' }
+    ];
+
+    const boxW = 148, boxH = 165, gap = 22;
+    const totalW = units.length * boxW + (units.length - 1) * gap;
+    const startX = (W - totalW) / 2;
+    const boxY = 640;
+
+    units.forEach((u, idx) => {
+      const bx = startX + idx * (boxW + gap);
+      ctx.save();
+      roundedPath(ctx, bx, boxY, boxW, boxH, 18);
+      ctx.fillStyle = 'rgba(255, 248, 250, 0.86)';
+      ctx.fill();
+      ctx.lineWidth = 2.5;
+      ctx.strokeStyle = 'rgba(191, 145, 83, 0.78)';
+      ctx.stroke();
+
+      ctx.font = '700 54px "Playfair Display", serif';
+      ctx.fillStyle = rose;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(u.value, bx + boxW / 2, boxY + 68);
+
+      ctx.font = '600 17px "Inter", sans-serif';
+      ctx.fillStyle = burgundy;
+      ctx.fillText(u.label, bx + boxW / 2, boxY + 130);
+      ctx.restore();
+    });
+
+    divider(ctx, 868, 220);
+    centered(ctx, 'TERIMA KASIH', 945, '700 30px "Cormorant Garamond", serif', burgundy);
+    centered(ctx, 'SUDI MENJADI SEBAHAGIAN DARIPADA HARI BAHAGIA KAMI', 992, '600 21px "Cormorant Garamond", serif', ink);
+    centered(ctx, 'Ayu & Danial', 1075, '400 72px "Great Vibes", cursive', rose);
+    ctx.restore();
+
+    ctx.drawImage(frame, 0, 0);
+    texture.needsUpdate = true;
+  }
+
+  async function buildTexture(page,index){
+    const canvasTex = document.createElement('canvas'); canvasTex.width=W; canvasTex.height=H;
+    const ctx=canvasTex.getContext('2d'); const bg=await loadFirstAvailable(page.background);
+    ctx.save(); roundedPath(ctx,11,11,W-22,H-22,28); ctx.clip(); if(bg)ctx.drawImage(bg,0,0,W,H); else {ctx.fillStyle='#f6e9e6';ctx.fillRect(0,0,W,H);} ctx.restore();
+    const frame=document.createElement('canvas'); frame.width=W; frame.height=H; const f=frame.getContext('2d');
+    f.clearRect(0,0,W,H); roundedPath(f,11,11,W-22,H-22,28); f.lineWidth=5;f.strokeStyle='rgba(191,145,83,.85)';f.stroke();roundedPath(f,24,24,W-48,H-48,22);f.lineWidth=2;f.strokeStyle='rgba(255,250,247,.86)';f.stroke();
+    
+    const texture=new THREE.CanvasTexture(canvasTex);
+    texture.encoding=THREE.sRGBEncoding;
+    texture.anisotropy=renderer.capabilities.getMaxAnisotropy();
+
+    if(page.kind==='ending'){
+      endingState = { canvasTex, ctx, bg, frame, texture };
+      renderEndingCard();
+      return texture;
+    }
+
+    ctx.save();
+    if(page.kind==='cover'){
+      centered(ctx,'W A L I M A T U L U R U S',480,'600 25px "Cormorant Garamond", serif',burgundy);
+      centered(ctx,'Ayu',605,'400 112px "Great Vibes", cursive',rose);
+      centered(ctx,'&',690,'italic 42px "Playfair Display", serif','#b27b8d');
+      centered(ctx,'Danial',775,'400 112px "Great Vibes", cursive',rose);
+      divider(ctx,845,168);
+      centered(ctx,'02 . 01 . 2027',898,'600 26px "Inter", sans-serif',burgundy);
+      centered(ctx,'#danikahiayu',948,'italic 28px "Cormorant Garamond", serif','#7f465a');
+      centered(ctx,'Beras kunyit kami taburi,',1010,'italic 27px "Cormorant Garamond", serif',ink);
+      centered(ctx,'Air mawar direnjis wangi;',1048,'italic 27px "Cormorant Garamond", serif',ink);
+      centered(ctx,'Undangan kami setulus hati,',1086,'italic 27px "Cormorant Garamond", serif',ink);
+      centered(ctx,'Harap sudi datang merai.',1124,'italic 27px "Cormorant Garamond", serif',ink);
+    } else if(page.kind==='location'){
+      centered(ctx,'L O K A S I  M A J L I S',310,'700 30px "Playfair Display", serif',burgundy);divider(ctx,346,250);
+      drawMapMark(ctx,600);
+      divider(ctx,850,185);
+      centered(ctx,'SEBARANG PERTANYAAN, SILA HUBUNGI',895,'700 25px "Cormorant Garamond", serif',burgundy);
+      centered(ctx,'011-2655 7625 ·  SANIP (AYAH)',948,'600 22px "Inter", sans-serif',ink);
+      centered(ctx,'011-6409 2705 ·  LINA (IBU)',990,'600 22px "Inter", sans-serif',ink);
+      centered(ctx,'011-2730 9517 ·  AIN (ADIK)',1032,'600 22px "Inter", sans-serif',ink);
+      centered(ctx,'013-867 2430  ·  ARILL (ADIK)',1074,'600 22px "Inter", sans-serif',ink);
+      const qr = await loadFirstAvailable(['assets/qrcode.png','qrcode.png']);
+      if(qr){
+        ctx.save();
+        ctx.fillStyle = '#fff';
+        ctx.fillRect(350, 1115, 200, 200);
+        ctx.drawImage(qr, 358, 1123, 184, 184);
+        ctx.restore();
+        centered(ctx, 'IMBAS UNTUK LOKASI', 1330, '600 20px "Cormorant Garamond", serif', burgundy);
+      }
+    } else if(page.kind==='invite'){
+      centered(ctx,'ASSALAMUALAIKUM WBT & SALAM SEJAHTERA,',410,'700 23px "Cormorant Garamond", serif','#a36a80');
+      centered(ctx,'SANIP BIN HASSAN',458,'700 25px "Cormorant Garamond", serif',ink);
+      centered(ctx,'&',490,'700 bold 23px "Cormorant Garamond", serif',ink);
+      centered(ctx,'NORHASLINA BINTI AHMAD',525,'700 25px "Cormorant Garamond", serif',ink);
+      
+      centered(ctx,'DENGAN PENUH KESYUKURAN MENJEMPUT',573,'700 23px "Cormorant Garamond", serif','#a36a80');
+      centered(ctx,"DATO’ | DATIN | TUAN | PUAN | ENCIK | CIK",608,'600 23px "Cormorant Garamond", serif','#a36a80');
+      centered(ctx,'KE MAJLIS PERKAHWINAN',643,'700 23px "Cormorant Garamond", serif','#a36a80');
+      divider(ctx,678,160);
+      centered(ctx,'SITI ROHAYU',728,'600 37px "Playfair Display", serif',rose);
+      centered(ctx,'&',788,'italic 36px "Playfair Display", serif','#a36a80');
+      centered(ctx,'DANIAL HAZIQ',848,'600 37px "Playfair Display", serif',rose);
+      divider(ctx,898,160);
+      centered(ctx,'PADA',933,'700 23px "Cormorant Garamond", serif','#a36a80');
+      centered(ctx,'02.01.2027 (SABTU)',968,'600 24px "Inter", sans-serif',ink);
+      centered(ctx,'YANG BERTEMPAT DI',1008,'700 23px "Cormorant Garamond", serif','#a36a80');
+      centered(ctx,'LORONG HAJI HASSAN,',1043,'600 25px "Inter", sans-serif',ink);
+      centered(ctx,'JALAN KAMPUNG PARIT SEMPADAN LAUT,',1078,'600 24px "Inter", sans-serif',ink);
+      centered(ctx,'86400 PARIT RAJA, JOHOR',1113,'600 23px "Inter", sans-serif',ink);
+      centered(ctx,'HADIRLAH MEMERIAHKAN HARI BERSEJARAH INI,',1163,'600 22px "Cormorant Garamond", serif','#a36a80');
+      centered(ctx,'MOGA BERSATU DOA DAN RESTU DALAM KASIH ILAHI.',1188,'600 22px "Cormorant Garamond", serif','#a36a80');
+    }
+    ctx.restore();
+    ctx.drawImage(frame,0,0);
+    texture.needsUpdate=true;
+    return texture;
+  }
+
+  // ================= ELEMEN HIDUP =================
+
+  function addStarPearl(x, y, z, r = 0.08){
+    if(!customTextures.pearl) return null;
+    const mat = new THREE.SpriteMaterial({
+      map: customTextures.pearl,
+      transparent: true,
+      opacity: 0.9,
+      depthWrite: false
+    });
+    const sprite = new THREE.Sprite(mat);
+    const baseScale = r * 4.5;
+    sprite.scale.set(baseScale, baseScale, 1);
+    sprite.position.set(x, y, z);
+    scene.add(sprite);
+
+    floating.push({
+      mesh: sprite,
+      baseY: y,
+      baseScale,
+      phase: Math.random() * Math.PI * 2,
+      twinkleSpeed: 1.8 + Math.random() * 2.8,
+      floatSpeed: 0.25 + Math.random() * 0.45,
+      kind: 'starPearl'
+    });
+    return sprite;
+  }
+
+  function addFlower(x, y, z, size = 0.36, variant = 'flower'){
+    const group = new THREE.Group();
+    group.position.set(x, y, z);
+
+    let tex = customTextures.flower;
+    if(variant === 'flora' && customTextures.flora) tex = customTextures.flora;
+    else if(variant === 'pearlFlower' && customTextures.pearlFlower) tex = customTextures.pearlFlower;
+    else if(variant === 'sakura' && customTextures.sakura) tex = customTextures.sakura;
+
+    const d = size * 3.1;
+    if(tex){
+      const mat = new THREE.MeshBasicMaterial({
+        map: tex,
+        transparent: true,
+        side: THREE.DoubleSide,
+        depthWrite: false,
+        alphaTest: 0.03
+      });
+      const plane = new THREE.Mesh(new THREE.PlaneGeometry(d, d), mat);
+      group.add(plane);
+    }
+
+    scene.add(group);
+
+    floating.push({
+      mesh: group,
+      baseY: y,
+      phase: Math.random() * Math.PI * 2,
+      speed: 1.4 + Math.random() * 0.6,
+      kind: 'bloomFlower'
+    });
+    return group;
+  }
+
+  function addButterfly(x, y, z, scale = 0.9, opts = {}){
+    const type = opts.type || (Math.random() > 0.45 ? 'gold' : 'pink');
+    const dir = opts.dir || (Math.random() > 0.5 ? 'left' : 'right');
+    const perched = Boolean(opts.perched);
+
+    const group = new THREE.Group();
+    group.position.set(x, y, z);
+
+    const dirSign = dir === 'left' ? 1 : -1;
+    group.scale.set(scale * dirSign, scale, scale);
+
+    const baseTilt = opts.tilt !== undefined ? opts.tilt : (dir === 'left' ? 0.28 : -0.28);
+    group.rotation.z = baseTilt;
+
+    const texL = type === 'pink' && customTextures.pinkButterflyLeft ? customTextures.pinkButterflyLeft : customTextures.goldButterflyLeft;
+    const texR = type === 'pink' && customTextures.pinkButterflyRight ? customTextures.pinkButterflyRight : customTextures.goldButterflyRight;
+
+    if(texL && texR){
+      const wingW = 0.52, wingH = 0.76;
+
+      const leftGeo = new THREE.PlaneGeometry(wingW, wingH);
+      leftGeo.translate(-wingW / 2, 0, 0);
+      const leftMat = new THREE.MeshBasicMaterial({map:texL, transparent:true, side:THREE.DoubleSide, depthWrite:false, alphaTest:0.03});
+      const left = new THREE.Mesh(leftGeo, leftMat);
+
+      const rightGeo = new THREE.PlaneGeometry(wingW, wingH);
+      rightGeo.translate(wingW / 2, 0, 0);
+      const rightMat = new THREE.MeshBasicMaterial({map:texR, transparent:true, side:THREE.DoubleSide, depthWrite:false, alphaTest:0.03});
+      const right = new THREE.Mesh(rightGeo, rightMat);
+
+      group.add(left, right);
+      group.userData = {left, right};
+    }
+
+    scene.add(group);
+    floating.push({
+      mesh: group,
+      baseX: x,
+      baseY: y,
+      baseTilt,
+      perched,
+      phase: Math.random() * Math.PI * 2,
+      speed: perched ? (0.45 + Math.random() * 0.25) : (0.85 + Math.random() * 0.65),
+      flapSpeed: perched ? (4.2 + Math.random() * 1.5) : (8.5 + Math.random() * 2.0),
+      kind: 'butterfly'
+    });
+    return group;
+  }
+
+  function addGateBouquetTopRight(curve, z){
+    const layout = [
+      { t: 0.74, size: 0.52, variant: 'flower', dx: 0, dy: 0, dz: 0.20 },
+      { t: 0.70, size: 0.38, variant: 'flora', dx: -0.16, dy: -0.10, dz: 0.16 },
+      { t: 0.78, size: 0.40, variant: 'flora', dx: 0.12, dy: 0.08, dz: 0.17 },
+      { t: 0.67, size: 0.32, variant: 'pearlFlower', dx: 0.08, dy: 0.14, dz: 0.22 },
+      { t: 0.81, size: 0.34, variant: 'pearlFlower', dx: -0.10, dy: -0.12, dz: 0.22 }
+    ];
+    layout.forEach(item => {
+      const p = curve.getPoint(item.t);
+      addFlower(p.x + item.dx, p.y + item.dy, z + item.dz, item.size, item.variant);
+    });
+
+    const pPerch = curve.getPoint(0.73);
+    addButterfly(pPerch.x - 0.12, pPerch.y + 0.35, z + 0.34, 0.65, { type: 'pink', dir: 'left', perched: true, tilt: 0.18 });
+  }
+
+  function addGateBouquetBottomLeft(curve, z){
+    const layout = [
+      { t: 0.15, size: 0.54, variant: 'flower', dx: 0, dy: 0, dz: 0.20 },
+      { t: 0.11, size: 0.40, variant: 'flora', dx: 0.14, dy: -0.08, dz: 0.16 },
+      { t: 0.19, size: 0.38, variant: 'flora', dx: -0.12, dy: 0.10, dz: 0.17 },
+      { t: 0.13, size: 0.32, variant: 'pearlFlower', dx: -0.18, dy: 0.12, dz: 0.22 },
+      { t: 0.17, size: 0.30, variant: 'pearlFlower', dx: 0.18, dy: -0.10, dz: 0.22 }
+    ];
+    layout.forEach(item => {
+      const p = curve.getPoint(item.t);
+      addFlower(p.x + item.dx, p.y + item.dy, z + item.dz, item.size, item.variant);
+    });
+
+    const pPerch = curve.getPoint(0.16);
+    addButterfly(pPerch.x + 0.18, pPerch.y + 0.32, z + 0.34, 0.64, { type: 'gold', dir: 'right', perched: true, tilt: -0.18 });
+  }
+
+  function makeGate(z, index){
+    const group = new THREE.Group();
+    group.position.z = z;
+    const points = [[-4.45,-7.0],[-4.45,-4.0],[-4.45,-.2],[-4.38,2.3],[-3.9,4.35],[-2.5,5.9],[0,6.55],[2.5,5.9],[3.9,4.35],[4.38,2.3],[4.45,-.2],[4.45,-4.0],[4.45,-7.0]].map(p=>new THREE.Vector3(p[0],p[1],0));
+    const curve = new THREE.CatmullRomCurve3(points);
+    const colors = [0xe8c891,0xd58aae,0xe8c891,0xd58aae];
+    const arch = new THREE.Mesh(new THREE.TubeGeometry(curve,100,.065,10,false),new THREE.MeshStandardMaterial({color:colors[index],metalness:.55,roughness:.27,emissive:colors[index],emissiveIntensity:.16}));
+    group.add(arch);
+    const inner = new THREE.Mesh(new THREE.TubeGeometry(curve,100,.022,8,false),new THREE.MeshBasicMaterial({color:0xffe6ed,transparent:true,opacity:.55}));
+    inner.position.z = -.12;
+    group.add(inner);
+
+    for(let i=0;i<=36;i++){
+      const p = curve.getPoint(i/36);
+      const r = (i%3===0) ? .068 : .042;
+      if(customTextures.pearl){
+        const sp = new THREE.Sprite(new THREE.SpriteMaterial({map:customTextures.pearl, transparent:true, depthWrite:false}));
+        sp.scale.set(r*3.6, r*3.6, 1);
+        sp.position.set(p.x, p.y, p.z + 0.08);
+        group.add(sp);
+      }
+    }
+
+    addGateBouquetTopRight(curve, z);
+    addGateBouquetBottomLeft(curve, z);
+
+    scene.add(group);
+    gateGroups.push(group);
+    return group;
+  }
+
+  function addStarryPearlBackdrop(){
+    const count = 1100;
+    const coords = new Float32Array(count*3);
+    const colors = new Float32Array(count*3);
+    for(let i=0;i<count;i++){
+      coords[i*3] = (Math.random()-.5)*46;
+      coords[i*3+1] = (Math.random()-.5)*42;
+      coords[i*3+2] = Math.random()*155 - 120;
+      const warm = Math.random();
+      colors[i*3] = warm>.5 ? 1 : .95;
+      colors[i*3+1] = warm>.5 ? .88 : .75;
+      colors[i*3+2] = warm>.5 ? .92 : .84;
+    }
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position',new THREE.BufferAttribute(coords,3));
+    geo.setAttribute('color',new THREE.BufferAttribute(colors,3));
+    const points = new THREE.Points(geo,new THREE.PointsMaterial({size:.055,vertexColors:true,transparent:true,opacity:.55,depthWrite:false,sizeAttenuation:true}));
+    scene.add(points);
+    floating.push({mesh:points,kind:'dust',phase:0,speed:.03});
+
+    for(let i = 0; i < 170; i++){
+      const z = 18 - Math.random() * 125;
+      let x = (Math.random() - 0.5) * 28;
+      let y = (Math.random() - 0.5) * 22;
+      if(Math.abs(x) < 3.4 && Math.abs(y) < 5.6){
+        x += (x >= 0 ? 3.6 : -3.6);
+      }
+      const r = 0.032 + Math.random() * 0.075;
+      addStarPearl(x, y, z, r);
+    }
+  }
+
+  function addBetweenGateCoupleImages(){
+    const slots = [
+      {file:'assets/couple_4.png', z:3.75,   x:2.18,  y:-4.18, tilt:-0.008},
+      {file:'assets/couple_5.png', z:-26.25, x:-2.18, y:-4.18, tilt:0.008},
+      {file:'assets/couple_6.png', z:-56.25, x:2.18,  y:-4.18, tilt:-0.006},
+      {file:'assets/couple_7.png', z:-86.25, x:-2.18, y:-4.18, tilt:0.006}
+    ];
+    return Promise.all(slots.map((slot, index) => new Promise(resolve => {
+      textureLoader.load(slot.file, tex => {
+        tex.encoding = THREE.sRGBEncoding;
+        tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+        const ratio = (tex.image.width || 1) / (tex.image.height || 1);
+        let height = 3.75;
+        let width = height * ratio;
+        if (width > 2.8) { width = 2.8; height = width / ratio; }
+        if (width < 1.35) { width = 1.35; height = width / ratio; }
+        const material = new THREE.MeshBasicMaterial({
+          map: tex,
+          transparent: true,
+          alphaTest: 0.015,
+          side: THREE.DoubleSide,
+          depthWrite: false,
+          toneMapped: false
+        });
+        const mesh = new THREE.Mesh(new THREE.PlaneGeometry(width, height), material);
+        mesh.position.set(slot.x, slot.y, slot.z);
+        mesh.rotation.y = index % 2 === 0 ? 0.035 : -0.035;
+        mesh.rotation.z = slot.tilt;
+        mesh.renderOrder = 3;
+        mesh.visible = false;
+        scene.add(mesh);
+        floating.push({
+          mesh,
+          baseX: slot.x,
+          baseY: slot.y,
+          baseRotation: slot.tilt,
+          chapterIndex: index,
+          phase: index * 1.37 + 0.3,
+          kind: 'coupleCutout'
+        });
+        markAssetStep();
+        resolve();
+      }, undefined, () => {
+        console.warn(`Couple cut-out not found: ${slot.file}. Check that it is inside the assets folder.`);
+        markAssetStep();
+        resolve();
+      });
+    })));
+  }
+
+  function decorateCardEdges(cardZ, offsetX = 0){
+    addFlower(offsetX + 2.85, 5.95, cardZ + 0.19, 0.50, 'flower');
+    addFlower(offsetX + 1.85, 6.28, cardZ + 0.16, 0.36, 'flora');
+    addFlower(offsetX + 3.35, 5.05, cardZ + 0.17, 0.34, 'flora');
+
+    addFlower(offsetX - 2.85, -5.95, cardZ + 0.19, 0.52, 'flower');
+    addFlower(offsetX - 1.82, -6.28, cardZ + 0.16, 0.38, 'flora');
+    addFlower(offsetX - 3.35, -5.02, cardZ + 0.17, 0.34, 'flora');
+
+    addButterfly(offsetX + 2.65, 6.28, cardZ + 0.32, 0.62, { type: 'gold', dir: 'left', perched: true, tilt: 0.20 });
+    addButterfly(offsetX - 2.60, -5.65, cardZ + 0.32, 0.64, { type: 'pink', dir: 'right', perched: true, tilt: -0.20 });
+
+    addButterfly(offsetX - 3.85, 1.35, cardZ + 0.34, 0.70, { type: 'pink', dir: 'right', perched: false, tilt: -0.24 });
+    addButterfly(offsetX + 3.85, -1.25, cardZ + 0.34, 0.72, { type: 'gold', dir: 'left', perched: false, tilt: 0.24 });
+  }
+
+  async function buildScene(){
+    // Mula muat turun audio di latar belakang tanpa menyekat paparan
+    const openAudio = document.getElementById('openEffect');
+    const bgAudio = document.getElementById('bgSound');
+    if (openAudio) openAudio.load();
+    if (bgAudio) bgAudio.load();
+
+    // Muatkan imej latar belakang utama dan elemen hiasan secara selari
+    const bgPromise = loadFirstAvailable(['assets/background.jpg', 'background.jpg']).then(() => markAssetStep());
+    await Promise.all([preloadCustomElements(), bgPromise]);
+
+    addStarryPearlBackdrop();
+
+    // Bina keempat-empat tekstur kad secara selari (jauh lebih pantas)
+    const builtTextures = await Promise.all(
+      pages.map((page, i) => buildTexture(page, i).then(tex => {
+        markAssetStep();
+        return tex;
+      }))
+    );
+
+    for(let i=0;i<pages.length;i++){
+      const page=pages[i];
+      const tex=builtTextures[i];
+      const material=new THREE.MeshBasicMaterial({map:tex,transparent:true,side:THREE.DoubleSide,depthWrite:false,opacity:1});
+      const mesh=new THREE.Mesh(new THREE.PlaneGeometry(7.35,13.067),material);
+      const offsetX = [0,.12,-.1,.12][i];
+      mesh.position.set(offsetX,0,page.z);mesh.renderOrder=2;scene.add(mesh);pageMeshes.push(mesh);
+      decorateCardEdges(page.z, offsetX);
+      makeGate(page.z+7.5,i);
+    }
+
+    const couplePromise = addBetweenGateCoupleImages();
+
+    setInterval(renderEndingCard, 1000);
+
+    for(let i = 0; i < 16; i++){
+      const z = 12 - Math.random() * 108;
+      const isLeft = i % 2 === 0;
+      const x = isLeft ? (-4.8 - Math.random() * 4.2) : (4.8 + Math.random() * 4.2);
+      const y = (Math.random() - 0.5) * 11;
+      addButterfly(x, y, z, 0.46 + Math.random() * 0.32, {
+        type: i % 2 === 0 ? 'pink' : 'gold',
+        dir: isLeft ? 'right' : 'left',
+        perched: false
+      });
+    }
+
+    setupScroll();
+    animate();
+
+    await couplePromise;
+  }
+
+  const scrollState={target:0,current:0};let lastChapter=-1;let mouseX=0,mouseY=0;
+  const bgEnv = document.getElementById('bgEnv');
+  const stops=[0,.125,.375,.625,.875,1];
+  function easedStops(p,arr){
+    for(let i=0;i<arr.length-1;i++)if(p<=arr[i+1]){const a=arr[i],b=arr[i+1],t=THREE.MathUtils.clamp((p-a)/(b-a),0,1);return i+t;}
+    return arr.length-1;
+  }
+  function interpAnchor(p,values){
+    const t=easedStops(p,stops);const i=Math.min(values.length-2,Math.floor(t));const local=t-i;const smooth=local*local*(3-2*local);return THREE.MathUtils.lerp(values[i],values[i+1],smooth);
+  }
+  const camX=[0,.16,.25,-.28,.18,0],camY=[0,-.08,-.12,.18,-.1,0];
+  const chapterCenters=[.125,.375,.625,.875];
+  const chapterThresholds=[.25,.5,.75];
+  const cameraZ=[33,18,-12,-42,-72,-75];
+  function updateChapter(p){
+    const chapter=p<chapterThresholds[0]?0:p<chapterThresholds[1]?1:p<chapterThresholds[2]?2:3;
+    if(chapter!==lastChapter){
+      lastChapter=chapter;
+      document.getElementById('chapterNum').textContent=String(chapter+1).padStart(2,'0');
+      document.getElementById('chapterKicker').textContent=['BABAK 1 · PERMULAAN','BABAK 2 · JEMPUTAN','BABAK 3 · LOKASI','BABAK 4 · PENUTUP'][chapter];
+      document.getElementById('chapterTitle').textContent=pages[chapter].name;
+      document.getElementById('chapterDesc').textContent=pages[chapter].desc;
+      document.getElementById('locationLink').style.display=chapter===2?'inline-flex':'none';
+      document.querySelectorAll('.chapter-dot').forEach((el,i)=>el.classList.toggle('active',i===chapter));
+      const prev = document.getElementById('prevChapter');
+      const next = document.getElementById('nextChapter');
+      prev.disabled = chapter === 0;
+      next.textContent = chapter < 3 ? `Seterusnya: ${pages[chapter+1].name} →` : '＋ Add to Calendar';
+      next.classList.toggle('calendar-next', chapter === 3);
+      gsap.fromTo('.chapter-note',{opacity:.55,y:8},{opacity:1,y:0,duration:.45,ease:'power2.out'});
+    }
+    document.getElementById('progressFill').style.width=(p*100).toFixed(2)+'%';
+    document.getElementById('progressPct').textContent=Math.round(p*100).toString().padStart(2,'0')+'%';
+  }
+  function setupScroll(){
+    ScrollTrigger.create({trigger:'#journey',start:'top top',end:'bottom bottom',onUpdate:self=>{scrollState.target=self.progress;updateChapter(self.progress);},onRefresh:self=>{scrollState.target=self.progress;updateChapter(self.progress);}});
+    window.addEventListener('pointermove',e=>{mouseX=(e.clientX/window.innerWidth-.5)*.5;mouseY=(e.clientY/window.innerHeight-.5)*.3;},{passive:true});
+  }
+  const clock=new THREE.Clock();
+  function animate(){
+    requestAnimationFrame(animate);
+    const time=clock.getElapsedTime();
+    scrollState.current+=(scrollState.target-scrollState.current)*.075;
+    const p=scrollState.current;
+    camera.position.z=interpAnchor(p,cameraZ);
+    camera.position.x=interpAnchor(p,camX)+mouseX*.22;
+    camera.position.y=interpAnchor(p,camY)-mouseY*.18;
+    camera.lookAt(camera.position.x*.74+mouseX*.2,camera.position.y*.74-mouseY*.15,camera.position.z-18);
+
+    if(bgEnv){
+      const zoom = 1.08 + p * 0.06;
+      const shiftX = -mouseX * 14;
+      const shiftY = -mouseY * 10;
+      bgEnv.style.transform = `translate3d(${shiftX}px, ${shiftY}px, 0) scale(${zoom})`;
+    }
+
+    gateGroups.forEach((gate,i)=>{gate.rotation.z=Math.sin(time*.15+i*.7)*.012;gate.rotation.y=Math.sin(time*.22+i*.8)*.018;});
+
+    floating.forEach((obj)=>{
+      if(obj.kind==='dust'){obj.mesh.rotation.y=time*.004;return;}
+
+      if(obj.kind==='butterfly'){
+        const wings = obj.mesh.userData;
+        if(obj.perched){
+          obj.mesh.position.y = obj.baseY + Math.sin(time * obj.speed + obj.phase) * 0.03;
+          if(wings.left && wings.right){
+            const gentleFlap = 0.15 + Math.sin(time * obj.flapSpeed + obj.phase) * 0.35;
+            wings.left.rotation.y = gentleFlap;
+            wings.right.rotation.y = -gentleFlap;
+          }
+          obj.mesh.rotation.z = obj.baseTilt + Math.sin(time * 0.5 + obj.phase) * 0.03;
+        } else {
+          obj.mesh.position.y = obj.baseY + Math.sin(time * obj.speed + obj.phase) * 0.18;
+          obj.mesh.position.x = obj.baseX + Math.cos(time * (obj.speed * 0.7) + obj.phase) * 0.11;
+          if(wings.left && wings.right){
+            const flap = Math.sin(time * obj.flapSpeed + obj.phase) * 0.65;
+            wings.left.rotation.y = flap;
+            wings.right.rotation.y = -flap;
+          }
+          obj.mesh.rotation.z = obj.baseTilt + Math.sin(time * 0.8 + obj.phase) * 0.07;
+        }
+      } else if(obj.kind==='bloomFlower'){
+        obj.mesh.position.y = obj.baseY + Math.sin(time * 0.6 + obj.phase) * 0.04;
+        const pulse = 1 + Math.sin(time * obj.speed + obj.phase) * 0.10;
+        obj.mesh.scale.set(pulse, pulse, 1);
+      } else if(obj.kind==='pearlFlower'){
+        obj.mesh.position.y = obj.baseY + Math.sin(time * 0.5 + obj.phase) * 0.03;
+        const pulse = 1 + Math.sin(time * obj.speed + obj.phase) * 0.13;
+        obj.mesh.scale.set(pulse, pulse, 1);
+      } else if(obj.kind==='coupleCutout'){
+        const activeCoupleChapter = p < 0.25 ? 0 : p < 0.50 ? 1 : p < 0.75 ? 2 : 3;
+        const isActive = obj.chapterIndex === activeCoupleChapter;
+        obj.mesh.visible = isActive;
+        if (obj.mesh.material) {
+          obj.mesh.material.opacity = isActive ? 1 : 0;
+        }
+        obj.mesh.position.y = obj.baseY + Math.sin(time * 0.48 + obj.phase) * 0.045;
+        obj.mesh.rotation.z = obj.baseRotation + Math.sin(time * 0.32 + obj.phase) * 0.008;
+      } else if(obj.kind==='starPearl'){
+        obj.mesh.position.y = obj.baseY + Math.sin(time * obj.floatSpeed + obj.phase) * 0.06;
+        const twinkle = 0.55 + 0.45 * Math.sin(time * obj.twinkleSpeed + obj.phase);
+        const starScale = obj.baseScale * (0.75 + 0.55 * twinkle);
+        obj.mesh.scale.set(starScale, starScale, 1);
+        if(obj.mesh.material){
+          obj.mesh.material.opacity = 0.35 + 0.65 * twinkle;
+        }
+      }
+    });
+    renderer.render(scene,camera);
+  }
+  function resize(){camera.aspect=window.innerWidth/window.innerHeight;camera.updateProjectionMatrix();renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.7));renderer.setSize(window.innerWidth,window.innerHeight,false);ScrollTrigger.refresh();}
+  window.addEventListener('resize',resize,{passive:true});
+
+  function scrollToChapter(index){
+    const chapter = Math.max(0, Math.min(3, index));
+    const journey = document.getElementById('journey');
+    const top = journey.getBoundingClientRect().top + window.scrollY;
+    const scrollable = Math.max(0, journey.offsetHeight - window.innerHeight);
+    window.scrollTo({top: top + chapterCenters[chapter] * scrollable, behavior:'smooth'});
+  }
+  document.getElementById('prevChapter').addEventListener('click',()=>scrollToChapter(Math.max(0,lastChapter-1)));
+  document.getElementById('nextChapter').addEventListener('click',()=>{
+    if(lastChapter < 3) scrollToChapter(lastChapter+1);
+    else openCalendarModal();
+  });
+  document.querySelectorAll('.chapter-dot').forEach(dot=>dot.addEventListener('click',()=>scrollToChapter(Number(dot.dataset.chapter))));
+
+  const calendarModal = document.getElementById('calendarModal');
+  const calendarModalCard = document.getElementById('calendarModalCard');
+  const googleCalendarLink = document.getElementById('googleCalendarLink');
+  const weddingTitle = 'Walimatulurus Ayu & Danial';
+  const weddingDateStart = '20270102T090000';
+  const weddingDateEnd = '20270102T180000';
+  const weddingLocation = 'Lorong Haji Hassan, Jalan Kampung Parit Sempadan Laut, 86400 Parit Raja, Johor';
+  const weddingMapUrl = 'https://maps.app.goo.gl/35REVG1qtnf4qi9Y9';
+  const weddingDetails = 'Majlis perkahwinan Siti Rohayu & Danial Haziq.\nTarikh: Sabtu, 2 Januari 2027.\nMasa: 9:00 pagi hingga 6:00 petang (waktu Malaysia, UTC+8).\nAlamat: ' + weddingLocation + '.\nBuka lokasi rumah di Google Maps: ' + weddingMapUrl;
+  const googleCalendarParams = new URLSearchParams({
+    action: 'TEMPLATE',
+    text: weddingTitle,
+    dates: weddingDateStart + '/' + weddingDateEnd,
+    details: weddingDetails,
+    location: weddingMapUrl,
+    ctz: 'Asia/Kuala_Lumpur'
+  });
+  googleCalendarLink.href = 'https://calendar.google.com/calendar/render?' + googleCalendarParams.toString();
+
+  function openCalendarModal(){
+    calendarModal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    calendarModalCard.focus();
+  }
+  function closeCalendarModal(){
+    calendarModal.hidden = true;
+    document.body.style.overflow = '';
+    document.getElementById('nextChapter').focus();
+  }
+  function icalEscape(value){
+    return String(value).replace(/\\/g, '\\\\').replace(/\r?\n/g, '\\n').replace(/,/g, '\\,').replace(/;/g, '\\;');
+  }
+  function downloadCalendarFile(){
+    const now = new Date();
+    const stamp = now.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z');
+    const ics = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'PRODID:-//Ayu Danial//Walimatulurus Invitation//MS',
+      'CALSCALE:GREGORIAN',
+      'METHOD:PUBLISH',
+      'BEGIN:VEVENT',
+      'UID:ayu-danial-walimatulurus-20270102@digital-invitation',
+      'DTSTAMP:' + stamp,
+      'DTSTART:20270102T010000Z',
+      'DTEND:20270102T100000Z',
+      'SUMMARY:' + icalEscape(weddingTitle),
+      'DESCRIPTION:' + icalEscape(weddingDetails),
+      'LOCATION:' + icalEscape(weddingMapUrl),
+      'URL:' + weddingMapUrl,
+      'STATUS:CONFIRMED',
+      'TRANSP:OPAQUE',
+      'END:VEVENT',
+      'END:VCALENDAR',
+      ''
+    ].join('\r\n');
+    const blob = new Blob([ics], {type:'text/calendar;charset=utf-8'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Walimatulurus-Ayu-Danial-2-Jan-2027.ics';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    window.setTimeout(()=>URL.revokeObjectURL(url), 1500);
+    closeCalendarModal();
+  }
+  document.getElementById('downloadIcsBtn').addEventListener('click', downloadCalendarFile);
+  document.getElementById('closeCalendarModal').addEventListener('click', closeCalendarModal);
+  document.getElementById('calendarModalBackdrop').addEventListener('click', closeCalendarModal);
+  googleCalendarLink.addEventListener('click', closeCalendarModal);
+
+  const readModal = document.getElementById('readModal');
+  const readModalTitle = document.getElementById('readModalTitle');
+  const readModalKicker = document.getElementById('readModalKicker');
+  const readModalContent = document.getElementById('readModalContent');
+  const readCardBtn = document.getElementById('readCardBtn');
+  const readEntries = [
+    {
+      kicker:'BABAK 1 DARIPADA 4 · PERMULAAN', title:'Ayu & Danial', content:`
+        <p class="modal-date">WALIMATULURUS · 02 JANUARI 2027</p>
+        <p><strong>Ayu &amp; Danial</strong></p><p class="modal-date">#danikahiayu</p>
+        <p><em>Beras kunyit kami taburi,<br>Air mawar direnjis wangi;<br>Undangan kami setulus hati,<br>Harap sudi datang merai.</em></p>
+        <p>Teruskan perjalanan untuk melihat lokasi majlis, jemputan rasmi dan penutup.</p>`
+    },
+    {
+      kicker:'BABAK 2 DARIPADA 4 · JEMPUTAN RASMI', title:'Jemputan Rasmi', content:`
+        <p>Assalamualaikum WBT &amp; salam sejahtera.</p>
+        <p><strong>Sanip bin Hassan &amp; Norhaslina binti Ahmad</strong> dengan penuh kesyukuran menjemput Dato’, Datin, Tuan, Puan, Encik dan Cik ke majlis perkahwinan:</p>
+        <p><strong>Siti Rohayu &amp; Danial Haziq</strong></p>
+        <p class="modal-date">02 JANUARI 2027</p>
+        <p>Lorong Haji Hassan,<br>Jalan Kampung Parit Sempadan Laut,<br>86400 Parit Raja, Johor.</p>
+        <p>Hadirlah memeriahkan hari bersejarah ini. Moga bersatu doa dan restu dalam kasih Ilahi.</p>`
+    },
+    {
+      kicker:'BABAK 3 DARIPADA 4 · LOKASI MAJLIS', title:'Lokasi Majlis', content:`
+        <p><strong>02 Januari 2027</strong></p><p>Lorong Haji Hassan,<br>Jalan Kampung Parit Sempadan Laut,<br>86400 Parit Raja, Johor.</p>
+        <p><a href="https://maps.app.goo.gl/35REVG1qtnf4qi9Y9" target="_blank" rel="noopener noreferrer">Buka lokasi di Google Maps ↗</a></p>
+        <p><strong>Untuk pertanyaan:</strong></p><p>Sanip (Ayah) · 011-2655 7625<br>Lina (Ibu) · 011-6409 2705<br>Ain (Adik) · 011-2730 9517<br>Arill (Adik) · 013-867 2430</p>
+        <p>QR lokasi juga tersedia pada kad 3D.</p>`
+    },
+    {
+      kicker:'BABAK 4 DARIPADA 4 · PENUTUP', title:'Counting Days', content:`
+        <p class="modal-date">MENUJU 02 JANUARI 2027</p><p id="modalCountdown">Menghitung hari menuju detik bahagia kami.</p>
+        <p><strong>Terima kasih</strong> kerana sudi menjadi sebahagian daripada hari bahagia kami.</p><p>Ayu &amp; Danial</p>`
+    }
+  ];
+  let modalReturnFocus = null;
+  function renderReadModal(index){
+    const i=Math.max(0,Math.min(3,index));
+    readModalKicker.textContent=readEntries[i].kicker;
+    readModalTitle.textContent=readEntries[i].title;
+    readModalContent.innerHTML=readEntries[i].content;
+    document.getElementById('modalPrev').disabled=i===0;
+    document.getElementById('modalNext').textContent=i===3?'Tutup butiran ✓':'Babak seterusnya →';
+    document.getElementById('modalNext').dataset.chapter=String(i);
+    const countdown=document.getElementById('modalCountdown');
+    if(countdown){
+      const target=new Date('2027-01-02T00:00:00+08:00').getTime();
+      const days=Math.max(0,Math.floor((target-Date.now())/86400000));
+      countdown.textContent=days===0?'Hari bahagia telah tiba!':`${days} hari lagi menuju detik bahagia kami.`;
+    }
+  }
+  function openReadModal(){
+    modalReturnFocus=document.activeElement;
+    renderReadModal(lastChapter<0?0:lastChapter);
+    readModal.hidden=false;
+    document.body.style.overflow='hidden';
+    document.getElementById('readModalCard').focus();
+  }
+  function closeReadModal(){
+    readModal.hidden=true;
+    document.body.style.overflow='';
+    if(modalReturnFocus && typeof modalReturnFocus.focus==='function') modalReturnFocus.focus();
+  }
+  readCardBtn.addEventListener('click',openReadModal);
+  document.getElementById('closeReadModal').addEventListener('click',closeReadModal);
+  document.getElementById('readModalBackdrop').addEventListener('click',closeReadModal);
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!calendarModal.hidden)closeCalendarModal();else if(e.key==='Escape'&&!readModal.hidden)closeReadModal();});
+  document.getElementById('modalPrev').addEventListener('click',()=>{
+    const i=Number(document.getElementById('modalNext').dataset.chapter||lastChapter||0);
+    if(i>0){closeReadModal();scrollToChapter(i-1);}
+  });
+  document.getElementById('modalNext').addEventListener('click',()=>{
+    const i=Number(document.getElementById('modalNext').dataset.chapter||lastChapter||0);
+    if(i<3){closeReadModal();scrollToChapter(i+1);}
+    else closeReadModal();
+  });
+
+  document.getElementById('openBtn').addEventListener('click',()=>{
+    const curtain=document.getElementById('curtain');
+    const openEffect = document.getElementById('openEffect');
+    const bgSound = document.getElementById('bgSound');
+
+    if(openEffect){
+      openEffect.volume = 1.0;
+      openEffect.play().catch(e => console.log("Audio kesan bunyi disekat:", e));
+    }
+
+    if(bgSound){
+      bgSound.volume = 0.6;
+      bgSound.loop = true;
+      bgSound.play().catch(e => console.log("Audio latar disekat:", e));
+    }
+
+    curtain.classList.add('opened');
+    document.body.classList.remove('waiting');
+    window.setTimeout(()=>{
+      curtain.classList.add('hidden');
+      window.scrollTo(0,0);
+      ScrollTrigger.refresh();
+    },1500);
+  });
+
+  // Mulakan pemuatan fon + adegan 3D dengan kawalan masa minimum & maksimum
+  const minWaitPromise = delay(MIN_LOADER_MS);
+  const maxWaitPromise = delay(MAX_LOADER_MS);
+
+  const initScenePromise = Promise.race([
+    document.fonts ? document.fonts.ready : Promise.resolve(),
+    delay(1200)
+  ])
+    .then(() => {
+      markAssetStep();
+      return buildScene();
+    })
+    .catch(err => {
+      console.error('Ralat membina adegan:', err);
+    });
+
+  Promise.all([
+    minWaitPromise,
+    Promise.race([initScenePromise, maxWaitPromise])
+  ]).then(() => {
+    finishPreloader();
+  });
+})();
+</script>
+<script>
+/* Logo cleanup: prefer the supplied assets/logo.jpg, fallback to assets/logo.png.
+   If the source has an opaque white/off-white canvas, key out near-white pixels;
+   already-transparent logos are left untouched. */
+(function(){
+  const logo = document.getElementById('brandLogo');
+  if (!logo) return;
+  const sources = ['assets/logo.jpg', 'assets/logo.png'];
+  let sourceIndex = 0;
+  let processed = false;
+
+  logo.addEventListener('error', function(){
+    if (sourceIndex < sources.length - 1) {
+      sourceIndex += 1;
+      logo.src = sources[sourceIndex];
+    } else {
+      console.warn('Logo file not found. Please place logo.jpg or logo.png in assets/.');
+    }
+  });
+
+  logo.addEventListener('load', function(){
+    if (processed || !logo.naturalWidth || !logo.naturalHeight) return;
+    processed = true;
+    try {
+      const canvas = document.createElement('canvas');
+      canvas.width = logo.naturalWidth;
+      canvas.height = logo.naturalHeight;
+      const ctx = canvas.getContext('2d', { willReadFrequently: true });
+      ctx.drawImage(logo, 0, 0);
+      const image = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const d = image.data;
+      const total = canvas.width * canvas.height;
+      let paleCount = 0;
+      for (let i = 0; i < d.length; i += 4) {
+        const r = d[i], g = d[i + 1], b = d[i + 2], a = d[i + 3];
+        const spread = Math.max(r, g, b) - Math.min(r, g, b);
+        if (a > 12 && r > 226 && g > 226 && b > 226 && spread < 25) paleCount++;
+      }
+      if (paleCount / total < 0.045) return;
+
+      for (let i = 0; i < d.length; i += 4) {
+        const r = d[i], g = d[i + 1], b = d[i + 2];
+        const spread = Math.max(r, g, b) - Math.min(r, g, b);
+        const minChannel = Math.min(r, g, b);
+        if (spread < 28 && minChannel > 224) {
+          const fade = Math.max(0, Math.min(1, (248 - minChannel) / 20));
+          d[i + 3] = Math.round(d[i + 3] * fade);
+        }
+      }
+      ctx.putImageData(image, 0, 0);
+      logo.src = canvas.toDataURL('image/png');
+      logo.dataset.backgroundRemoved = 'true';
+    } catch (err) {
+      console.warn('Could not auto-remove logo background:', err);
+    }
+  });
+
+  logo.src = sources[sourceIndex];
+})();
+</script>
+
+</body>
+</html>
