@@ -795,14 +795,100 @@
       centered(ctx,'011-6409 2705 ·  LINA (IBU)',990,'600 22px "Inter", sans-serif',ink);
       centered(ctx,'011-2730 9517 ·  AIN (ADIK)',1032,'600 22px "Inter", sans-serif',ink);
       centered(ctx,'013-867 2430  ·  ARILL (ADIK)',1074,'600 22px "Inter", sans-serif',ink);
+      // Dua panel seimbang dan berpusat pada kad: atur cara (kiri) + QR (kanan)
+      const panelY = 1107, panelH = 277, panelW = 320;
+      const panelLeftX = 118, panelRightX = 462; // jurang 24px, center total = 450px
+      const panelLeftCenter = panelLeftX + panelW / 2;
+      const panelRightCenter = panelRightX + panelW / 2;
+
+      // Kesan frosted-glass pada tekstur Canvas 3D (lutsinar, blur, border emas)
+      function drawGlassPanel(x){
+        ctx.save();
+        roundedPath(ctx, x, panelY, panelW, panelH, 18);
+        ctx.clip();
+        if(bg){
+          ctx.filter = 'blur(12px)';
+          ctx.drawImage(bg, 0, 0, W, H);
+          ctx.filter = 'none';
+        }
+        const glass = ctx.createLinearGradient(x, panelY, x + panelW, panelY + panelH);
+        glass.addColorStop(0, 'rgba(255,252,250,.91)');
+        glass.addColorStop(1, 'rgba(255,246,248,.87)');
+        ctx.fillStyle = glass;
+        ctx.fillRect(x, panelY, panelW, panelH);
+        ctx.restore();
+        ctx.save();
+        roundedPath(ctx, x, panelY, panelW, panelH, 18);
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = 'rgba(169,116,71,.72)';
+        ctx.stroke();
+        roundedPath(ctx, x + 6, panelY + 6, panelW - 12, panelH - 12, 13);
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = 'rgba(255,255,255,.88)';
+        ctx.stroke();
+        ctx.restore();
+      }
+      drawGlassPanel(panelLeftX);
+      drawGlassPanel(panelRightX);
+
+      // Atur cara dalam panel kiri: jarak selesa daripada bunga hiasan
+      ctx.save();
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillStyle = burgundy;
+      ctx.font = '700 25px "Playfair Display", serif';
+      ctx.fillText('ATUR CARA MAJLIS', panelLeftCenter, 1141);
+      ctx.strokeStyle = 'rgba(169,116,71,.62)';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(panelLeftCenter - 88, 1163);
+      ctx.lineTo(panelLeftCenter + 88, 1163);
+      ctx.stroke();
+
+      // Timeline tiga acara; semua teks kekal di dalam separuh kiri
+      const aturCara = [
+        { masa: '10:00 AM', acara: 'Kehadiran Tetamu', y: 1192 },
+        { masa: '12:00 PM', acara: 'Ketibaan Pengantin', y: 1257 },
+        { masa: '05:00 PM', acara: 'Majlis Tamat', y: 1322 }
+      ];
+      const timelineX = panelLeftX + 38;
+      ctx.beginPath();
+      ctx.moveTo(timelineX, 1192);
+      ctx.lineTo(timelineX, 1322);
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = 'rgba(154,112,61,.55)';
+      ctx.stroke();
+      aturCara.forEach(({ masa, acara, y }) => {
+        ctx.beginPath();
+        ctx.arc(timelineX, y, 5, 0, Math.PI * 2);
+        ctx.fillStyle = gold;
+        ctx.fill();
+        ctx.textAlign = 'left';
+        ctx.font = '700 21px "Inter", sans-serif';
+        ctx.fillStyle = burgundy;
+        ctx.fillText(masa, timelineX + 19, y - 9);
+        ctx.font = '600 23px "Cormorant Garamond", serif';
+        ctx.fillStyle = ink;
+        ctx.fillText(acara, timelineX + 19, y + 18);
+      });
+      ctx.restore();
+
+      // QR code dalam panel kanan, selari dengan panel atur cara (50:50)
       const qr = await loadFirstAvailable(['assets/qrcode.png','qrcode.png']);
       if(qr){
+        const qrSize = 184;
+        const qrX = panelRightCenter - qrSize / 2;
+        const qrY = 1130;
         ctx.save();
         ctx.fillStyle = '#fff';
-        ctx.fillRect(350, 1115, 200, 200);
-        ctx.drawImage(qr, 358, 1123, 184, 184);
+        ctx.fillRect(qrX - 8, qrY - 8, qrSize + 16, qrSize + 16);
+        ctx.drawImage(qr, qrX, qrY, qrSize, qrSize);
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.font = '700 20px "Cormorant Garamond", serif';
+        ctx.fillStyle = burgundy;
+        ctx.fillText('IMBAS UNTUK LOKASI', panelRightCenter, 1350);
         ctx.restore();
-        centered(ctx, 'IMBAS UNTUK LOKASI', 1330, '600 20px "Cormorant Garamond", serif', burgundy);
       }
     } else if(page.kind==='invite'){
       centered(ctx,'ASSALAMUALAIKUM WBT & SALAM SEJAHTERA,',410,'700 23px "Cormorant Garamond", serif','#a36a80');
@@ -814,9 +900,9 @@
       centered(ctx,"DATO’ | DATIN | TUAN | PUAN | ENCIK | CIK",608,'600 23px "Cormorant Garamond", serif','#a36a80');
       centered(ctx,'KE MAJLIS PERKAHWINAN',643,'700 23px "Cormorant Garamond", serif','#a36a80');
       divider(ctx,678,160);
-      centered(ctx,'SITI ROHAYU',728,'600 37px "Playfair Display", serif',rose);
+      centered(ctx,'SITI ROHAYU BINTI SANIP',728,'600 37px "Playfair Display", serif',rose);
       centered(ctx,'&',788,'italic 36px "Playfair Display", serif','#a36a80');
-      centered(ctx,'DANIAL HAZIQ',848,'600 37px "Playfair Display", serif',rose);
+      centered(ctx,'DANIAL HAZIQ BIN ZAZALI',848,'600 37px "Playfair Display", serif',rose);
       divider(ctx,898,160);
       centered(ctx,'PADA',933,'700 23px "Cormorant Garamond", serif','#a36a80');
       centered(ctx,'02.01.2027 (SABTU)',968,'600 24px "Inter", sans-serif',ink);
@@ -1386,6 +1472,10 @@
       kicker:'BABAK 3 DARIPADA 4 · LOKASI MAJLIS', title:'Lokasi Majlis', content:`
         <p><strong>02 Januari 2027</strong></p><p>Lorong Haji Hassan,<br>Jalan Kampung Parit Sempadan Laut,<br>86400 Parit Raja, Johor.</p>
         <p><a href="https://maps.app.goo.gl/35REVG1qtnf4qi9Y9" target="_blank" rel="noopener noreferrer">Buka lokasi di Google Maps ↗</a></p>
+        <p><strong>Atur Cara Majlis:</strong></p>
+        <p><strong>10:00 AM</strong> · Kehadiran Tetamu<br>
+        <strong>12:00 PM</strong> · Ketibaan Pengantin<br>
+        <strong>05:00 PM</strong> · Majlis Tamat</p>
         <p><strong>Untuk pertanyaan:</strong></p><p>Sanip (Ayah) · 011-2655 7625<br>Lina (Ibu) · 011-6409 2705<br>Ain (Adik) · 011-2730 9517<br>Arill (Adik) · 013-867 2430</p>
         <p>QR lokasi juga tersedia pada kad 3D.</p>`
     },
